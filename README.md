@@ -1,21 +1,17 @@
 🦷 Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
-Ce projet propose une application web intelligente pour la classification automatique des pathologies dentaires à partir d'images, enrichie par une supervision complète des métriques système et applicatives à l’aide de Prometheus et Grafana. Le tout est orchestré via Docker Compose pour une installation et une gestion simplifiées.
+Ce projet propose une application web intelligente pour la classification automatique des pathologies dentaires à partir d’images, enrichie par une supervision en temps réel des métriques système et applicatives à l’aide de Prometheus et Grafana. Le tout est orchestré via Docker Compose, garantissant une installation et une gestion faciles et reproductibles.
 
-🔧 Technologies Utilisées:
+🔧 Technologies Utilisées
+Technologie	Rôle
+🐍 Python / Flask	Backend de l'application web
+🔥 PyTorch	Modèle de deep learning pour la classification dentaire
+📈 Prometheus	Collecte et exposition des métriques système et applicatives
+📊 Grafana	Visualisation dynamique des métriques
+🐳 Docker Compose	Orchestration des conteneurs
+🎨 HTML / CSS	Interface utilisateur simple et fonctionnelle
 
-🐍 Python, Flask : Backend de l'application web
-
-🔥 PyTorch : Modèle de classification dentaire
-
-📈 Prometheus : Collecte de métriques
-
-📊 Grafana : Visualisation des métriques
-
-🐳 Docker & Docker Compose : Conteneurisation et orchestration
-
-🎨 HTML/CSS : Interface utilisateur
-
-⚡ Prérequis:
+⚙️ Prérequis
+Avant de commencer, assurez-vous d'avoir installé :
 
 Docker
 
@@ -29,94 +25,89 @@ Modifier
 ├── app_modified.py        # Version instrumentée avec Prometheus
 ├── Dockerfile             # Image Docker de l’application
 ├── docker-compose.yml     # Orchestration multi-conteneurs
-├── models/                # Modèle de classification (PyTorch)
+├── models/                # Modèle entraîné (PyTorch)
 ├── prometheus/            # Configuration Prometheus
-├── grafana/               # Provisioning Grafana (datasources, dashboards)
+├── grafana/               # Provisioning automatique de Grafana
 ├── requirements.txt       # Dépendances Python
-├── save_model.py          # Chargement du modèle
-├── templates/             # Interface utilisateur HTML
-├── images/                # Images explicatives (schéma, captures)
-└── dataset_organisé/      # Jeux de données structurés
-
+├── save_model.py          # Chargement et préparation du modèle
+├── templates/             # Fichiers HTML de l'interface utilisateur
+├── images/                # Schémas et captures d’écran du projet
+└── dataset_organisé/      # Données structurées pour l’entraînement
 🚀 Installation & Exécution
-
-Cloner le dépôt
-
+1. Cloner le dépôt
 bash
 Copier
 Modifier
 git clone <url-du-repo>
 cd Pathologies-Dentaires
-Construire et lancer les services
-
+2. Construire et lancer les services
 bash
 Copier
 Modifier
 docker-compose up --build
-Arrêter les services
-
+3. Arrêter les services
 bash
 Copier
 Modifier
 docker-compose down
 🌐 Accès aux Services
 Service	URL	Description
-🖥️ Application	http://localhost:5000	Interface de classification d’images
-📡 Prometheus	http://localhost:9090	Consultation des métriques collectées
-📊 Grafana	http://localhost:3000	Tableaux de bord (admin/admin)
+🖥️ Application	http://localhost:5000	Interface de classification d'images
+📡 Prometheus	http://localhost:9090	Visualisation des métriques brutes
+📊 Grafana	http://localhost:3000	Dashboards (Identifiants : admin/admin)
 
-🏗️ Architecture du Projet:
+🏗️ Architecture du Projet
+L’architecture du projet repose sur une infrastructure Dockerisée et modulaire :
 
-L’architecture repose sur une stack multi-conteneurs Docker :
+Flask App : Service de traitement des images et retour des prédictions.
 
-Flask App : Service principal de classification
+Prometheus : Collecte des métriques exposées via un endpoint /metrics.
 
-Prometheus : Collecte des métriques exposées par Flask
-
-Grafana : Visualisation des métriques
-
+Grafana : Tableaux de bord pour visualiser les performances du modèle et l’état du système.
 
 
-📊 Supervision et Métriques:
 
-L’application expose des métriques détaillées :
+📊 Supervision des Métriques
+L'application expose des métriques via Prometheus, visualisables dans Grafana :
 
-🔧 Métriques système :
+🔧 Métriques Système :
 Utilisation CPU
 
-Utilisation de la mémoire
+Consommation mémoire
 
 Activité réseau
 
-🧠 Métriques applicatives :
+🧠 Métriques Applicatives :
 Nombre de prédictions par classe
 
-Temps de réponse moyen
+Temps moyen de traitement par image
 
-Nombre et statut des requêtes HTTP
+Nombre et codes des requêtes HTTP
 
-➡️ Ces métriques sont collectées automatiquement via Prometheus et visualisées dans Grafana :
-![Visualisation Grafana](images/Grafana.png)
+⚠️ Ces métriques sont automatiquement instrumentées dans app_modified.py.
 
 
 
 🧑‍💻 Interface Utilisateur
-Permet de téléverser une image dentaire et d’obtenir une classification instantanée :
-![Interface de l'application](images/app.png)
+L’utilisateur peut téléverser une image dentaire et obtenir une prédiction immédiate de la pathologie :
 
 
 
 🦷 Informations sur les Pathologies
-Un aperçu des pathologies détectées par le modèle :![Informations maladies](images/info.png)
+Chaque classe du modèle correspond à une pathologie dentaire, avec affichage des détails médicaux :
 
 
 
-⚙️ Personnalisation & Extension
-🔁 Ajout de pathologies : Ajouter des images dans dataset_organisé/ et réentraîner le modèle.
+⚙️ Personnalisation & Extensions
+Fonctionnalité	Action
+🔁 Ajouter de nouvelles pathologies	Ajouter des images dans dataset_organisé/ et réentraîner le modèle
+📐 Modifier les dashboards Grafana	Éditer les fichiers dans grafana/provisioning/dashboards/
+📥 Ajouter des métriques personnalisées	Étendre app_modified.py avec des décorateurs Prometheus
 
-📐 Dashboards Grafana : Modifier ceux existants dans grafana/provisioning/dashboards/.
+👨‍🔧 Auteur
+Projet réalisé par Aghzar Otmane dans le cadre d’un projet universitaire.
+Ce projet allie Deep Learning, Monitoring DevOps et conteneurisation, dans une logique d’intégration continue.
 
-📥 Ajout de métriques personnalisées : Modifier app_modified.py pour ajouter des @summary, @counter, etc.
-
-👨‍🔧 Auteurs
-Projet réalisé par Aghzar Otmane dans le cadre de projet universitaire
+📄 Licence
+Ce projet est sous licence MIT.
+Voir le fichier LICENSE pour plus d'informations.
