@@ -1,7 +1,8 @@
 🦷 Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
 Ce projet propose une application web intelligente pour la classification automatique des pathologies dentaires à partir d'images, enrichie par une supervision complète des métriques système et applicatives à l’aide de Prometheus et Grafana. Le tout est orchestré via Docker Compose pour une installation et une gestion simplifiées.
 
-🔧 Technologies Utilisées
+🔧 Technologies Utilisées:
+
 🐍 Python, Flask : Backend de l'application web
 
 🔥 PyTorch : Modèle de classification dentaire
@@ -14,7 +15,8 @@ Ce projet propose une application web intelligente pour la classification automa
 
 🎨 HTML/CSS : Interface utilisateur
 
-⚡ Prérequis
+⚡ Prérequis:
+
 Docker
 
 Docker Compose
@@ -35,7 +37,9 @@ Modifier
 ├── templates/             # Interface utilisateur HTML
 ├── images/                # Images explicatives (schéma, captures)
 └── dataset_organisé/      # Jeux de données structurés
+
 🚀 Installation & Exécution
+
 Cloner le dépôt
 
 bash
@@ -61,7 +65,8 @@ Service	URL	Description
 📡 Prometheus	http://localhost:9090	Consultation des métriques collectées
 📊 Grafana	http://localhost:3000	Tableaux de bord (admin/admin)
 
-🏗️ Architecture du Projet
+🏗️ Architecture du Projet:
+
 L’architecture repose sur une stack multi-conteneurs Docker :
 
 Flask App : Service principal de classification
@@ -72,7 +77,8 @@ Grafana : Visualisation des métriques
 
 
 
-📊 Supervision et Métriques
+📊 Supervision et Métriques:
+
 L’application expose des métriques détaillées :
 
 🔧 Métriques système :
@@ -89,12 +95,14 @@ Temps de réponse moyen
 
 Nombre et statut des requêtes HTTP
 
-➡️ Ces métriques sont collectées automatiquement via Prometheus et visualisées dans Grafana :![Visualisation Grafana](images/Grafana.png)
+➡️ Ces métriques sont collectées automatiquement via Prometheus et visualisées dans Grafana :
+![Visualisation Grafana](images/Grafana.png)
 
 
 
 🧑‍💻 Interface Utilisateur
-Permet de téléverser une image dentaire et d’obtenir une classification instantanée :![Interface de l'application](images/app.png)
+Permet de téléverser une image dentaire et d’obtenir une classification instantanée :
+![Interface de l'application](images/app.png)
 
 
 
@@ -111,4 +119,4 @@ Un aperçu des pathologies détectées par le modèle :![Informations maladies](
 📥 Ajout de métriques personnalisées : Modifier app_modified.py pour ajouter des @summary, @counter, etc.
 
 👨‍🔧 Auteurs
-Projet réalisé par [Votre Nom] dans le cadre de projet universitaire
+Projet réalisé par Aghzar Otmane dans le cadre de projet universitaire
