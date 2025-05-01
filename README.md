@@ -1,29 +1,28 @@
-Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
-
-Ce projet propose une application web de classification automatique de pathologies dentaires à partir d'images, enrichie par une supervision des métriques système et applicatives grâce à Prometheus et Grafana. Le tout est orchestré avec Docker Compose pour une installation simplifiée.
+🦷 Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
+Ce projet propose une application web intelligente pour la classification automatique des pathologies dentaires à partir d'images, enrichie par une supervision complète des métriques système et applicatives à l’aide de Prometheus et Grafana. Le tout est orchestré via Docker Compose pour une installation et une gestion simplifiées.
 
 🔧 Technologies Utilisées
+🐍 Python, Flask : Backend de l'application web
 
-Python, Flask : application web
+🔥 PyTorch : Modèle de classification dentaire
 
-PyTorch : modèle de classification dentaire
+📈 Prometheus : Collecte de métriques
 
-Prometheus : collecte des métriques
+📊 Grafana : Visualisation des métriques
 
-Grafana : visualisation des métriques
+🐳 Docker & Docker Compose : Conteneurisation et orchestration
 
-Docker & Docker Compose : conteneurisation et orchestration
-
-HTML/CSS : interface utilisateur
+🎨 HTML/CSS : Interface utilisateur
 
 ⚡ Prérequis
-
 Docker
 
 Docker Compose
 
-🔄 Structure du projet
-
+📁 Structure du Projet
+bash
+Copier
+Modifier
 ├── app.py                 # Application Flask principale
 ├── app_modified.py        # Version instrumentée avec Prometheus
 ├── Dockerfile             # Image Docker de l’application
@@ -36,100 +35,80 @@ Docker Compose
 ├── templates/             # Interface utilisateur HTML
 ├── images/                # Images explicatives (schéma, captures)
 └── dataset_organisé/      # Jeux de données structurés
-
-🚀 Installation et exécution
-
+🚀 Installation & Exécution
 Cloner le dépôt
 
+bash
+Copier
+Modifier
 git clone <url-du-repo>
 cd Pathologies-Dentaires
-
 Construire et lancer les services
 
+bash
+Copier
+Modifier
 docker-compose up --build
-
 Arrêter les services
 
+bash
+Copier
+Modifier
 docker-compose down
+🌐 Accès aux Services
+Service	URL	Description
+🖥️ Application	http://localhost:5000	Interface de classification d’images
+📡 Prometheus	http://localhost:9090	Consultation des métriques collectées
+📊 Grafana	http://localhost:3000	Tableaux de bord (admin/admin)
 
-🔓 Accès aux services
-
-Application Web : http://localhost:5000 — Interface de classification
-
-Prometheus : http://localhost:9090 — Métriques collectées
-
-Grafana : http://localhost:3000 (admin/admin) — Tableaux de bord
-
-🏢 Architecture du projet
-
-L’architecture repose sur plusieurs conteneurs Docker :
+🏗️ Architecture du Projet
+L’architecture repose sur une stack multi-conteneurs Docker :
 
 Flask App : Service principal de classification
 
 Prometheus : Collecte des métriques exposées par Flask
 
-Grafana : Visualisation des tableaux de bord
-
-![Schéma de l'architecture](images/shema.png)
+Grafana : Visualisation des métriques
 
 
-📊 Supervision et métriques
 
-L’application expose des métriques via Prometheus, visibles dans Grafana :
+📊 Supervision et Métriques
+L’application expose des métriques détaillées :
 
-Métriques système :
-
+🔧 Métriques système :
 Utilisation CPU
 
-Mémoire
+Utilisation de la mémoire
 
 Activité réseau
 
-Métriques applicatives :
-
+🧠 Métriques applicatives :
 Nombre de prédictions par classe
 
-Latence des prédictions
+Temps de réponse moyen
 
-Détails des requêtes HTTP
+Nombre et statut des requêtes HTTP
 
-
-
-🔹 Interface utilisateur
-
-Permet de téléverser une image dentaire et d’obtenir une classification automatique.
-
-![Interface de l'application](images/app.png)
+➡️ Ces métriques sont collectées automatiquement via Prometheus et visualisées dans Grafana :![Visualisation Grafana](images/Grafana.png)
 
 
-🌐 Informations sur les maladies
 
-Détails sur les pathologies détectées par le modèle :
+🧑‍💻 Interface Utilisateur
+Permet de téléverser une image dentaire et d’obtenir une classification instantanée :![Interface de l'application](images/app.png)
 
-![Informations maladies](images/info.png)
+
+
+🦷 Informations sur les Pathologies
+Un aperçu des pathologies détectées par le modèle :![Informations maladies](images/info.png)
+
 
 
 ⚙️ Personnalisation & Extension
+🔁 Ajout de pathologies : Ajouter des images dans dataset_organisé/ et réentraîner le modèle.
 
-Ajout de pathologies : Ajoutez des images dans dataset_organisé/ et réentraînez le modèle
+📐 Dashboards Grafana : Modifier ceux existants dans grafana/provisioning/dashboards/.
 
-Dashboards Grafana : Modifiez-les dans grafana/provisioning/dashboards/
+📥 Ajout de métriques personnalisées : Modifier app_modified.py pour ajouter des @summary, @counter, etc.
 
-Ajout de métriques : Instrumentez app_modified.py pour plus de métriques
-
-
-📈 Visualisation des métriques
-
-Les métriques collectées sont visualisées dans Grafana :
-
-![Visualisation Grafana](images/Grafana.png)
-
-
-📚 Auteurs
-
-Projet réalisé par [Votre Nom] dans le cadre de [Projet universitaire / Stage].
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
-
+👨‍🔧 Auteurs
+Projet réalisé par [Votre Nom] dans le cadre de projet universitaire
