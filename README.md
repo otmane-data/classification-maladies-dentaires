@@ -1,4 +1,4 @@
-#🦷 Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
+🦷# Classification des Pathologies Dentaires avec Supervision via Docker, Prometheus et Grafana
 Ce projet propose une application web intelligente pour la classification automatique des pathologies dentaires à partir d’images, enrichie par une supervision en temps réel des métriques système et applicatives à l’aide de Prometheus et Grafana. Le tout est orchestré via Docker Compose, garantissant une installation et une gestion faciles et reproductibles.
 
 🔧 Technologies Utilisées:
