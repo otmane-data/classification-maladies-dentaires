@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification des Pathologies Dentaires</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B00;
+            --primary-hover: #FF8C3F;
+            --secondary-color: #5B5B5B;
+            --accent-color: #FF9D45;
+            --dark-bg: #181B1F;
+            --card-bg: #212529;
+            --panel-bg: #2C3136;
+            --text-color: #D8D9DA;
+            --text-muted: #9FA7B3;
+            --success-color: #37872D;
+            --warning-color: #F5B73D;
+            --danger-color: #E02F44;
+            --border-color: #343B42;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header h1 {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .lead {
+            color: var(--text-muted);
+        }
+        
+        .panel {
+            background-color: var(--panel-bg);
+            border-radius: 3px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            background-color: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .panel-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .panel-header i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .panel-body {
+            padding: 1.5rem;
+        }
+        
+        .upload-section {
+            text-align: center;
+            padding: 2.5rem;
+            border: 1px dashed var(--border-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 107, 0, 0.05);
+        }
+        
+        .upload-section:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(255, 107, 0, 0.1);
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 350px;
+            margin: 1.5rem 0;
+            border-radius: 3px;
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .diagnosis-card {
+            padding: 2rem;
+            text-align: center;
+            border-radius: 3px;
+            background-color: var(--card-bg);
+            box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 2rem;
+        }
+        
+        .diagnosis-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .tooth-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            border-radius: 2px;
+            transition: all 0.3s;
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .btn-success:hover {
+            background-color: #2F7427;
+            border-color: #2F7427;
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4A4A4A;
+            border-color: #4A4A4A;
+            box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .probability-bar {
+            height: 25px;
+            margin-bottom: 10px;
+            border-radius: 2px;
+            transition: width 1s ease-in-out;
+        }
+        
+        .probability-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .pathology-info {
+            margin-top: 2rem;
+        }
+        
+        .info-card {
+            padding: 1.5rem;
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+            background-color: var(--card-bg);
+            border-left: 3px solid transparent;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-card h4 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .info-card p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Styles pour les graphiques de probabilité */
+        .probability-container {
+            margin-top: 2rem;
+        }
+        
+        .probability-item {
+            margin-bottom: 1rem;
+        }
+        
+        .probability-bar-container {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .probability-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 4px;
+            transition: width 0.8s ease-in-out;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://grafana.com/static/assets/img/grafana_logo_swirl_fullcolor.svg" alt="Logo" class="mb-3">
+            </div>
+            <h1>Classification des Pathologies Dentaires</h1>
+            <p class="lead">Téléchargez une image dentaire pour identifier la pathologie</p>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <i class="fas fa-upload"></i>
+                <h3>Télécharger une image</h3>
+            </div>
+            <div class="panel-body">
+                <div class="upload-section" id="upload-area">
+                    <div class="tooth-icon"><i class="fas fa-tooth"></i></div>
+                    <h4 class="mb-3">Glissez-déposez votre image ici</h4>
+                    <p class="text-muted mb-4">ou utilisez le bouton ci-dessous pour sélectionner un fichier</p>
+                    <input type="file" id="image-upload" class="form-control" accept="image/*" style="display: none;">
+                    <button class="btn btn-primary" id="upload-btn"><i class="fas fa-upload me-2"></i>Sélectionner une image</button>
+                </div>
+
+                <div id="preview-container" style="display: none;" class="text-center mt-4">
+                    <h4 class="mb-3"><i class="fas fa-image me-2"></i>Aperçu de l'image</h4>
+                    <img id="preview-image" class="preview-image" src="" alt="Aperçu de l'image">
+                    <div class="mt-4">
+                        <button class="btn btn-primary" id="predict-btn"><i class="fas fa-search me-2"></i>Analyser l'image</button>
+                        <button class="btn btn-secondary ms-2" id="reset-btn"><i class="fas fa-redo me-2"></i>Réinitialiser</button>
+                    </div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <p class="mt-2">Analyse en cours...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" id="results" style="display: none;">
+            <div class="panel-header">
+                <i class="fas fa-chart-pie"></i>
+                <h3>Résultat de l'analyse</h3>
+            </div>
+            <div class="panel-body">
+                <div class="diagnosis-card">
+                    <div class="diagnosis-icon"><i class="fas fa-tooth"></i></div>
+                    <h3 class="mb-3">Pathologie détectée</h3>
+                    <h2 class="text-primary mb-4" id="main-diagnosis"></h2>
+                    
+                    <div class="mt-4 text-muted">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <span>Cette analyse est basée sur l'intelligence artificielle et ne remplace pas l'avis d'un professionnel de santé.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel pathology-info">
+            <div class="panel-header">
+                <i class="fas fa-info-circle"></i>
+                <h3>Informations sur les pathologies</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Calculus">
+                            <h4>Calculus (Tartre)</h4>
+                            <p>Dépôt minéralisé qui se forme sur les dents, généralement dû à une mauvaise hygiène bucco-dentaire. Le tartre peut causer une inflammation des gencives et contribuer à la maladie parodontale.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Caries">
+                            <h4>Caries</h4>
+                            <p>Destruction localisée des tissus dentaires durs causée par les acides produits par les bactéries. Les caries peuvent provoquer des douleurs, des infections et la perte de dents si elles ne sont pas traitées.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Gingivitis">
+                            <h4>Gingivitis (Gingivite)</h4>
+                            <p>Inflammation des gencives caractérisée par des rougeurs, des gonflements et des saignements. C'est le stade initial de la maladie parodontale, généralement causée par une accumulation de plaque dentaire.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Hypodontia">
+                            <h4>Hypodontia</h4>
+                            <p>Condition congénitale caractérisée par l'absence d'une ou plusieurs dents. Cette anomalie peut affecter l'esthétique du sourire et la fonction masticatoire.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Tooth Discoloration">
+                            <h4>Tooth Discoloration (Décoloration dentaire)</h4>
+                            <p>Changement de la couleur naturelle des dents, pouvant être causé par des facteurs externes (tabac, café, thé) ou internes (médicaments, traumatismes, maladies).</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="info-card" id="info-Ulcers">
+                            <h4>Ulcers (Ulcères buccaux)</h4>
+                            <p>Lésions douloureuses qui apparaissent sur les muqueuses de la bouche. Elles peuvent être causées par des traumatismes, des infections, des carences nutritionnelles ou des maladies auto-immunes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Classification des Pathologies Dentaires | Développé avec l'intelligence artificielle</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadBtn = document.getElementById('upload-btn');
+            const uploadInput = document.getElementById('image-upload');
+            const uploadArea = document.getElementById('upload-area');
+            const previewContainer = document.getElementById('preview-container');
+            const previewImage = document.getElementById('preview-image');
+            const predictBtn = document.getElementById('predict-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const loadingIndicator = document.getElementById('loading');
+            const resultsSection = document.getElementById('results');
+            const mainDiagnosis = document.getElementById('main-diagnosis');
+            const confidenceValue = document.getElementById('confidence-value');
+            const probabilityBars = document.getElementById('probability-bars');
+
+            // Gérer le clic sur le bouton de téléchargement
+            uploadBtn.addEventListener('click', function() {
+                uploadInput.click();
+            });
+
+            // Gérer le glisser-déposer
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('border-primary');
+            });
+
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.classList.remove('border-primary');
+            });
+
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('border-primary');
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+
+            // Gérer la sélection de fichier
+            uploadInput.addEventListener('change', function() {
+                if (this.files.length) {
+                    handleFile(this.files[0]);
+                }
+            });
+
+            // Fonction pour traiter le fichier sélectionné
+            function handleFile(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Veuillez sélectionner une image valide.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    uploadArea.style.display = 'none';
+                    previewContainer.style.display = 'block';
+                    resultsSection.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Gérer le clic sur le bouton de prédiction
+            predictBtn.addEventListener('click', function() {
+                // Vérifier si un fichier a été sélectionné
+                if (!uploadInput.files.length) {
+                    alert('Veuillez sélectionner une image avant de lancer l\'analyse.');
+                    return;
+                }
+                
+                // Afficher l'indicateur de chargement
+                loadingIndicator.style.display = 'block';
+                
+                // Créer un objet FormData pour envoyer l'image
+                const formData = new FormData();
+                formData.append('file', uploadInput.files[0]);
+
+                // Envoyer la requête au serveur
+                fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Masquer l'indicateur de chargement
+                    loadingIndicator.style.display = 'none';
+                    
+                    if (data.error) {
+                        alert('Erreur: ' + data.error);
+                        return;
+                    }
+
+                    // Afficher les résultats
+                    displayResults(data);
+                    
+                    // Faire défiler jusqu'aux résultats
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    loadingIndicator.style.display = 'none';
+                    alert('Erreur lors de la prédiction: ' + error);
+                });
+            });
+
+            // Fonction pour afficher les résultats
+            function displayResults(data) {
+                // Afficher le diagnostic principal
+                mainDiagnosis.textContent = data.class;
+                
+                // Afficher la section des résultats
+                resultsSection.style.display = 'block';
+                
+                // Mettre en évidence la carte d'information correspondant à la pathologie détectée
+                highlightPathologyInfo(data.class);
+            }
+            
+            // Fonction pour mettre en évidence la carte d'information de la pathologie détectée
+            function highlightPathologyInfo(pathology) {
+                // Réinitialiser toutes les cartes
+                document.querySelectorAll('.info-card').forEach(card => {
+                    card.style.borderLeftColor = 'transparent';
+                });
+                
+                // Trouver la carte correspondant à la pathologie et la mettre en évidence
+                const infoCard = document.getElementById(`info-${pathology}`);
+                if (infoCard) {
+                    infoCard.style.borderLeftColor = 'var(--primary-color)';
+                    infoCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            // Gérer le clic sur le bouton de réinitialisation
+            resetBtn.addEventListener('click', function() {
+                // Réinitialiser l'interface
+                uploadInput.value = '';
+                previewImage.src = '';
+                previewContainer.style.display = 'none';
+                resultsSection.style.display = 'none';
+                uploadArea.style.display = 'block';
+                
+                // Faire défiler jusqu'en haut
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
