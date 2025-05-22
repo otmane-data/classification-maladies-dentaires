@@ -73,9 +73,7 @@ L’architecture du projet repose sur une infrastructure Dockerisée et modulair
 ☑️ Prometheus : Collecte des métriques exposées via un endpoint /metrics.
 
 ☑️ Grafana : Tableaux de bord pour visualiser les performances du modèle et l’état du système.
-
 ![Schéma de l'architecture](images/shema.png)
-
 📊 Supervision des Métriques:
 
 L'application expose des métriques via Prometheus, visualisables dans Grafana :
